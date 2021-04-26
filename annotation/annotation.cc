@@ -25,6 +25,9 @@ Annotator::Annotator(const char *img_dir, std::vector<std::string> label_list, b
     if (!fs::exists(fs::path(img_dir))) {
         const char* msg = "The provided image directory does not exist";
         perror(msg); exit(1);
+    } else {
+        // Add the directory to the class.
+        this->image_directory = img_dir;
     }
 
     // Load the list of image paths from the directory.
