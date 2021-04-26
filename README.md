@@ -4,7 +4,7 @@
 using OpenCV, with no other third party libraries involved. It consists of a makeshift GUI with buttons
 corresponding to different labels, and a two-click annotation interface. 
 
-## Usage
+## Installation
 
 To use Annotator yourself, first clone this repository: 
 
@@ -33,6 +33,37 @@ Finally, execute the following command and an annotator session will begin:
 ./annotator
 ```
 
+## Usage
+
+After the Annotator window launches, it will sequentially load each of the images
+in the directory path that you have provided. From here, you will be presented with a window
+similar to the following image:
+
+![Base Image](images/annotator-base.png)
+
+You can then use the two-click interface by clicking on a specific 
+point of the image (excluding the buttons) and then clicking on a second point.
+For each set of two clicks, a bounding box will appear. This will then be stored in a 
+internal vector of bounding boxes alongside the selected label, and the process will repeat
+for each bounding box on each individual image.
+
+![Annotated Image](images/annotator-annotated.png)
+
+You can click on the different label buttons at the top to switch between labels,
+and this will correspondingly be recorded internally and will appear as such in the 
+output annotation text files. 
+
+Additionally, he following keyboard shortcuts are part of Annotator:
+
+1. **`q`**: Exit the session and close all windows.
+2. **`c`**: Clear the annotations for the current image.
+
+## License
+
+![GitHub](https://img.shields.io/github/license/amogh7joshi/annotator?style=flat-square) 
+
+The code in this repository is licensed under the **Apache 2.0 License**,
+see [LICENSE](LICENSE) for more details and terms of usage.
 
 
 
