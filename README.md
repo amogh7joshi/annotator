@@ -1,8 +1,9 @@
 # Annotator
 
 **Annotator** is a lightweight framework for constructing object detection annotations. It's built only
-using OpenCV, with no other third party libraries involved. It consists of a makeshift GUI with buttons
-corresponding to different labels, and a two-click annotation interface. 
+using OpenCV, with no other third-party libraries involved. The primary frontend consists of a makeshift GUI with buttons
+corresponding to different labels and a two-click bounding-box creation interface, and the backend
+parses the annotations and places the bounding box coordinates into text files corresponding to the images. 
 
 ## Installation
 
@@ -53,17 +54,20 @@ You can click on the different label buttons at the top to switch between labels
 and this will correspondingly be recorded internally and will appear as such in the 
 output annotation text files. 
 
-Additionally, he following keyboard shortcuts are part of Annotator:
+Additionally, the following keyboard shortcuts are part of Annotator:
 
 1. **`q`**: Exit the session and close all windows.
 2. **`c`**: Clear the annotations for the current image.
 
-## License
+## License and Contributions
 
 ![GitHub](https://img.shields.io/github/license/amogh7joshi/annotator?style=flat-square) 
 
 The code in this repository is licensed under the **Apache 2.0 License**,
-see [LICENSE](LICENSE) for more details and terms of usage.
+see [LICENSE](LICENSE) for more details and terms of usage. If you have any contributions
+that you feel may improve Annotator, feel free to contact me at `joshi.amoghn@gmail.com`, and
+if you notice any pressing issues, don't hesitate to head to the Issues portion of the repository
+and let me know.
 
 
 
