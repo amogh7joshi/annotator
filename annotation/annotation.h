@@ -34,7 +34,7 @@
 class Annotator {
 private:
     /* The path to the directory full of images. */
-    const char* image_directory;
+    const char* image_directory{};
 
     /* The list of labels to annotate for. */
     std::vector<const char*> labels;
@@ -63,7 +63,7 @@ public:
      * @param recurse_search: Whether to search
      * recursively through the image directory.
      */
-    Annotator(const char* img_dir, std::vector<std::string> label_list, bool recurse_search);
+    Annotator(const char* img_dir, const std::vector<std::string>& label_list, bool recurse_search);
 
     /**
      * Instantiates the Annotator class with
@@ -71,7 +71,7 @@ public:
      * @param img_dir: The directory of images.
      * @param label_list: The list of labels.
      */
-    Annotator(const char* img_dir, std::vector<std::string> label_list);
+    Annotator(const char* img_dir, const std::vector<std::string>& label_list);
 
     /**
      * Conducts the actual annotation session, e.g.

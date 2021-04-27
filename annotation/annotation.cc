@@ -19,7 +19,7 @@
 using namespace std;
 namespace fs = std::__fs::filesystem;
 
-Annotator::Annotator(const char *img_dir, std::vector<std::string> label_list, bool recurse)
+Annotator::Annotator(const char *img_dir, const std::vector<std::string>& label_list, bool recurse)
         : handler("two-click", label_list), writer() {
     // Check whether the provided image directory exists.
     if (!fs::exists(fs::path(img_dir))) {
@@ -35,7 +35,7 @@ Annotator::Annotator(const char *img_dir, std::vector<std::string> label_list, b
     this->image_paths = get_image_paths(img_dir, recursive_search);
 }
 
-Annotator::Annotator(const char *img_dir, std::vector<std::string> label_list)
+Annotator::Annotator(const char *img_dir, const std::vector<std::string>& label_list)
         : handler("two-click", label_list), writer() {
     // Check whether the provided image directory exists.
     if (!fs::exists(fs::path(img_dir))) {
@@ -49,7 +49,7 @@ Annotator::Annotator(const char *img_dir, std::vector<std::string> label_list)
 
 void Annotator::start_annotation_session() {
     // Iterate over each of the images in the list of paths.
-    for (auto path: image_paths) {
+    for (const auto& path: image_paths) {
         // Conduct the bounding box annotation session.
         int res = this->handler.annotate(path.c_str());
         if (res == -1) {
