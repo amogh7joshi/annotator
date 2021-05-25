@@ -5,4 +5,5 @@ opencv/
 CMakeFiles/
 cmake-build-debug/
 test_data/
+/annotator
 
