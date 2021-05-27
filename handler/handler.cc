@@ -213,10 +213,6 @@ void AnnotationHandler::add_buttons_to_image() {
 
 void AnnotationHandler::clear_buttons() {
     // Iterate over the different buttons.
-    for (auto i : this->label_list) {
-        cout << i << endl;
-    }
-    cout << "\n";
     for (int i = 0; i < this->buttons.size(); ++i) {
         // Extract the button from the current list.
         Rect button = this->buttons[i];
