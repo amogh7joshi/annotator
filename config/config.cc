@@ -65,6 +65,26 @@ void UserConfig::load_config() {
             this->recurse = b;
         }
 
+        // Determine the writing mode order.
+        if (curr == 3) {
+            // Create a vector of strings.
+            string delimeter = " "; size_t pos = 0;
+            vector<int> extracted_labels;
+
+            // Iterate over the line.
+            while ((pos = line.find(' ')) != string::npos) {
+                // Extract the token.
+                extracted_labels.push_back(stoi(line.substr(0, pos)));
+                line.erase(0, pos + delimeter.length());
+            }
+
+            // Add the final token.
+            extracted_labels.push_back(stoi(line));
+
+            // Set the values to the class.
+            this->mode_order = extracted_labels;
+        }
+
         // Increment the iterator.
         curr += 1;
 

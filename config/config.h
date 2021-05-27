@@ -23,6 +23,9 @@ public:
     /* Whether to recurse or not. */
     bool recurse;
 
+    /* The mode order for file writing. */
+    std::vector<int> mode_order;
+
 private:
     /* The path to the configuration file. */
     const char* config_path = "./config.txt";
