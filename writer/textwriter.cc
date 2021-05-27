@@ -24,7 +24,8 @@
 using namespace std;
 namespace fs = std::__fs::filesystem;
 
-TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice, const char *output_directory) {
+TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice,
+                               const char *output_directory) {
     // Check whether the provided mode is valid.
     if (mode_choice.size() == 4) {
         // Copy the vector.
@@ -53,6 +54,9 @@ TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice, const char *
 
     // Build the output directories.
     TextFileWriter::build_output_directory(this->output_dir);
+
+    // Set the extension mode.
+    this->ext_mode = ".txt";
 }
 
 TextFileWriter::TextFileWriter(const char *output_directory) {
@@ -67,6 +71,9 @@ TextFileWriter::TextFileWriter(const char *output_directory) {
 
     // Build the output directories.
     TextFileWriter::build_output_directory(this->output_dir);
+
+    // Set the extension mode.
+    this->ext_mode = ".txt";
 }
 
 TextFileWriter::TextFileWriter() {
@@ -74,6 +81,9 @@ TextFileWriter::TextFileWriter() {
     // then be overwritten for each of the different
     // files which are created in the future.
     this->output_dir = nullptr;
+
+    // Set the extension mode.
+    this->ext_mode = ".txt";
 }
 
 std::string TextFileWriter::format_line(std::tuple<const char*, std::vector<int>>& content) {
@@ -98,79 +108,10 @@ std::string TextFileWriter::format_line(std::tuple<const char*, std::vector<int>
     return complete_line;
 }
 
-const char* TextFileWriter::get_output_path(const char *image_file) {
-    // Ensure that the image file exists.
-    if (!fs::exists(image_file)) {
-        string msg = string("The provided file \'" + string(image_file)
-                            + (const char*)"\' does not exist");
-        perror(msg.c_str()); exit(1);
-    }
-
-    // Get the ID of the image file (e.g., the basename of
-    // the file, and without the extension).
-    const fs::path basename = fs::path(image_file).stem();
-
-    // Create a new text file with the image ID.
-    const fs::path text_base = fs::path(string(basename) + ".txt");
-
-    // Create a holder for the output directory.
-    static fs::path output_directory;
-
-    // Create the output directory as necessary.
-    if (this->output_dir == nullptr) {
-        // Replace the `images` directory with `annotations`.
-        string str_path = fs::path(image_file).parent_path().string();
-        output_directory = regex_replace(
-                str_path, regex("images"), "annotations");
-        TextFileWriter::build_output_directory(output_directory.c_str());
-    } else{
-        // Otherwise, it has already been built in the instantiation
-        // method, so simply just create the path.
-        output_directory = fs::path(this->output_dir);
-    }
-
-    // Create the complete output path.
-    fs::path full_output_path (output_directory / text_base);
-
-    // Return the complete output path.
-    return fs::absolute(full_output_path).c_str();
-}
-
-void TextFileWriter::build_output_directory(const char* path) {
-    // Check whether the output directory exists.
-    if (!fs::exists(fs::path(path))) {
-        // If it doesn't, then build it. If it doesn't,
-        // then build get the parent directory and build that.
-        if (!fs::exists(fs::path(path).parent_path())) {
-            // Repeat the same thing for a third time (this method
-            // will recurse through the directories thrice).
-            if (!fs::exists(fs::path(path).parent_path().parent_path())) {
-                if (!fs::exists(fs::path(path).parent_path().parent_path().parent_path())) {
-                    const char* msg = "More than three levels of the provided directory "
-                                      "structure do not exist, please provide another";
-                    perror(msg); exit(1);
-                } else {
-                    // Make the rest of the paths.
-                    fs::create_directory(fs::path(path).parent_path().parent_path());
-                    fs::create_directory(fs::path(path).parent_path());
-                    fs::create_directory(fs::path(path));
-                }
-            } else {
-                // Make the rest of the paths.
-                fs::create_directory(fs::path(path).parent_path());
-                fs::create_directory(fs::path(path));
-            }
-        } else {
-            // Make the rest of the paths.
-            fs::create_directory(fs::path(path));
-        }
-    }
-}
-
 void TextFileWriter::build_annotation_file(const char* image_file_name,
                                            const vector<tuple<const char*, vector<int>>>& content) {
     // Get the corresponding output filename from the image.
-    string output_file_path = string(this->get_output_path(image_file_name));
+    const string output_file_path = this->get_output_path(image_file_name);
 
     // Create a vector to hold the file lines.
     vector<string> file_lines;
@@ -187,6 +128,7 @@ void TextFileWriter::build_annotation_file(const char* image_file_name,
     out_file.open(output_file_path);
     for (const auto& line: file_lines) {
         out_file << line;
+        out_file.flush();
     }
     out_file.close();
 }

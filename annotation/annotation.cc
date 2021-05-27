@@ -58,6 +58,7 @@ void Annotator::start_annotation_session() {
             perror(msg); exit(1);
         }
         // Extract the bounding boxes and pass them to the writer.
-        this->writer.build_annotation_file(path.c_str(), this->handler.get_bounding_boxes());
+        this->writer.build_annotation_file(
+            path.c_str(), this->handler.get_bounding_boxes());
     }
 }

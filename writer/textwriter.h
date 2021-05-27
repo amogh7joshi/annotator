@@ -18,6 +18,7 @@
 #include <vector>
 #include <filesystem>
 
+#include "writer.h"
 #include "textwriter.h"
 #include "../system/paths.h"
 
@@ -27,7 +28,7 @@
  * annotation and containing the class and then
  * values based on the chosen mode.
  */
-class TextFileWriter {
+class TextFileWriter : public FileWriter {
 protected:
     /* The specific mode being used, which corresponds
      * to the arrangement of the different coordinate
@@ -83,7 +84,7 @@ public:
      */
     void build_annotation_file(const char* image_file_name,
                                const std::vector<std::tuple<const char*,
-                               std::vector<int>>>& content);
+                                       std::vector<int>>>& content);
 
 private:
     /**
@@ -95,17 +96,6 @@ private:
     std::string format_line(std::tuple<const char*,
                             std::vector<int>>& content);
 
-    /**
-     * Gets the name of the output filepath from
-     * the corresponding input image file.
-     * @param image_file: The input image file.
-     */
-    const char* get_output_path(const char* image_file);
-
-    /**
-     * Builds the output directories as necessary.
-     */
-    static void build_output_directory(const char* path);
 };
 
 #endif //ANNOTATION_WRITER_H
