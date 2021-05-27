@@ -19,7 +19,7 @@
 #include <vector>
 
 #include "../system/paths.h"
-#include "../system/writer.h"
+#include "../writer/writer.h"
 #include "../handler/handler.h"
 
 /**
@@ -52,7 +52,7 @@ protected:
     AnnotationHandler handler;
 
     /* The FileWriter for the class. */
-    FileWriter writer;
+    TextFileWriter writer;
 
 public:
     /**

@@ -19,16 +19,15 @@
 #include <filesystem>
 
 #include "writer.h"
-#include "paths.h"
+#include "../system/paths.h"
 
 /**
- * Writes a set of annotations into
- * an annotation file, with each line
- * corresponding to a specific annotation
- * and containing the class and then
+ * Writes a set of annotations into an text annotation
+ * file, with each line corresponding to a specific
+ * annotation and containing the class and then
  * values based on the chosen mode.
  */
-class FileWriter {
+class TextFileWriter {
 protected:
     /* The specific mode being used, which corresponds
      * to the arrangement of the different coordinate
@@ -54,8 +53,8 @@ public:
      * @param output_directory: The directory to
      * write the output annotation files to.
      */
-    FileWriter(const std::vector<int>& mode_choice,
-               const char* output_directory_choice);
+    TextFileWriter(const std::vector<int>& mode_choice,
+                   const char* output_directory_choice);
 
     /**
      * Initializes the FileWriter class
@@ -63,7 +62,7 @@ public:
      * @param output_directory: The directory to
      * write the output annotation files to.
      */
-    explicit FileWriter(const char* output_directory_choice);
+    explicit TextFileWriter(const char* output_directory_choice);
 
     /**
      * Initializes the FileWriter class with the
@@ -72,7 +71,7 @@ public:
      * as each input image, with the directory `images`
      * replaced with `annotations` instead.
      */
-    FileWriter();
+    TextFileWriter();
 
     /**
      * Constructs the annotation file given an input
@@ -106,8 +105,6 @@ private:
      * Builds the output directories as necessary.
      */
     static void build_output_directory(const char* path);
-
-
 };
 
 #endif //ANNOTATION_WRITER_H

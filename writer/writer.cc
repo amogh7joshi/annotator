@@ -24,7 +24,7 @@
 using namespace std;
 namespace fs = std::__fs::filesystem;
 
-FileWriter::FileWriter(const std::vector<int>& mode_choice, const char *output_directory) {
+TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice, const char *output_directory) {
     // Check whether the provided mode is valid.
     if (mode_choice.size() == 4) {
         // Copy the vector.
@@ -52,10 +52,10 @@ FileWriter::FileWriter(const std::vector<int>& mode_choice, const char *output_d
     this->output_dir = output_directory;
 
     // Build the output directories.
-    FileWriter::build_output_directory(this->output_dir);
+    TextFileWriter::build_output_directory(this->output_dir);
 }
 
-FileWriter::FileWriter(const char *output_directory) {
+TextFileWriter::TextFileWriter(const char *output_directory) {
     // Check whether the output directory is valid.
     if (!path_exists(output_directory)) {
         const char* msg = "The output directory provided does not exist.";
@@ -66,17 +66,17 @@ FileWriter::FileWriter(const char *output_directory) {
     this->output_dir = output_directory;
 
     // Build the output directories.
-    FileWriter::build_output_directory(this->output_dir);
+    TextFileWriter::build_output_directory(this->output_dir);
 }
 
-FileWriter::FileWriter() {
+TextFileWriter::TextFileWriter() {
     // Set the directory path to a nullptr, which will
     // then be overwritten for each of the different
     // files which are created in the future.
     this->output_dir = nullptr;
 }
 
-std::string FileWriter::format_line(std::tuple<const char*, std::vector<int>>& content) {
+std::string TextFileWriter::format_line(std::tuple<const char*, std::vector<int>>& content) {
     // Unpack the tuple into the points and label.
     const char* label = std::get<0>(content);
     vector<int> points = std::get<1>(content);
@@ -98,7 +98,7 @@ std::string FileWriter::format_line(std::tuple<const char*, std::vector<int>>& c
     return complete_line;
 }
 
-const char* FileWriter::get_output_path(const char *image_file) {
+const char* TextFileWriter::get_output_path(const char *image_file) {
     // Ensure that the image file exists.
     if (!fs::exists(image_file)) {
         string msg = string("The provided file \'" + string(image_file)
@@ -122,7 +122,7 @@ const char* FileWriter::get_output_path(const char *image_file) {
         string str_path = fs::path(image_file).parent_path().string();
         output_directory = regex_replace(
                 str_path, regex("images"), "annotations");
-        FileWriter::build_output_directory(output_directory.c_str());
+        TextFileWriter::build_output_directory(output_directory.c_str());
     } else{
         // Otherwise, it has already been built in the instantiation
         // method, so simply just create the path.
@@ -136,7 +136,7 @@ const char* FileWriter::get_output_path(const char *image_file) {
     return fs::absolute(full_output_path).c_str();
 }
 
-void FileWriter::build_output_directory(const char* path) {
+void TextFileWriter::build_output_directory(const char* path) {
     // Check whether the output directory exists.
     if (!fs::exists(fs::path(path))) {
         // If it doesn't, then build it. If it doesn't,
@@ -167,8 +167,8 @@ void FileWriter::build_output_directory(const char* path) {
     }
 }
 
-void FileWriter::build_annotation_file(const char* image_file_name,
-                                       const vector<tuple<const char*, vector<int>>>& content) {
+void TextFileWriter::build_annotation_file(const char* image_file_name,
+                                           const vector<tuple<const char*, vector<int>>>& content) {
     // Get the corresponding output filename from the image.
     string output_file_path = string(this->get_output_path(image_file_name));
 
