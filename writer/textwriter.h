@@ -62,7 +62,7 @@ public:
      * default directory and chosen mode.
      * @param mode_choice: The chosen writing mode.
      */
-    TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice);
+    TextFileWriter(const std::vector<int>& mode_choice);
 
     /**
      * Constructs the annotation file given an input

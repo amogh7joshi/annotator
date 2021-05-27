@@ -26,7 +26,8 @@ int main() {
     // Construct the annotator with the user-provided choices.
     Annotator annotator = Annotator(
         config.image_directory.c_str(),
-        config.labels, config.recurse);
+        config.labels, config.recurse,
+        config.mode_order);
 
     // Start the annotation session.
     annotator.start_annotation_session();
