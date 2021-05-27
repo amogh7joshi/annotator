@@ -19,7 +19,7 @@
 #include <vector>
 
 #include "../system/paths.h"
-#include "../writer/writer.h"
+#include "../writer/textwriter.h"
 #include "../handler/handler.h"
 
 /**

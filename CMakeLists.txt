@@ -15,7 +15,7 @@ include_directories(/usr/local/include/)
 include_directories(/usr/local/Cellar)
 
 # Add the primary executables.
-add_executable(annotator annotator.cc system/paths.cc writer/writer.cc
+add_executable(annotator annotator.cc system/paths.cc writer/textwriter.cc
                handler/handler.cc annotation/annotation.cc config/config.cc)
 
 # Link the OpenCV libraries to the project.

@@ -18,7 +18,7 @@
 #include <vector>
 #include <filesystem>
 
-#include "writer.h"
+#include "textwriter.h"
 #include "../system/paths.h"
 
 /**
@@ -82,7 +82,8 @@ public:
      * @param content: The file content.
      */
     void build_annotation_file(const char* image_file_name,
-                               const std::vector<std::tuple<const char*, std::vector<int>>>& content);
+                               const std::vector<std::tuple<const char*,
+                               std::vector<int>>>& content);
 
 private:
     /**
@@ -92,7 +93,7 @@ private:
      * @param content: The line of content.
      */
     std::string format_line(std::tuple<const char*,
-            std::vector<int>>& content);
+                            std::vector<int>>& content);
 
     /**
      * Gets the name of the output filepath from
