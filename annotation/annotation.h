@@ -62,8 +62,10 @@ public:
      * @param label_list: The list of labels.
      * @param recurse_search: Whether to search
      * recursively through the image directory.
+     * @param mode_choice: The mode to use for writing.
      */
-    Annotator(const char* img_dir, const std::vector<std::string>& label_list, bool recurse_search);
+    Annotator(const char* img_dir, const std::vector<std::string>& label_list,
+              bool recurse_search, const std::vector<int>& mode_choice);
 
     /**
      * Instantiates the Annotator class with

@@ -13,7 +13,7 @@
  * Base class for the different writers.
  */
 class FileWriter {
-private:
+protected:
     /* The specific mode being used, which corresponds
      * to the arrangement of the different coordinate
      * values in the text file.
@@ -30,7 +30,6 @@ private:
      * be a copy of the actual image file names. */
     const char* output_dir;
 
-protected:
     /* The output file base path that corresponds to the
      * specific writer type. */
     const char* ext_mode;
@@ -58,6 +57,13 @@ protected:
     virtual void build_annotation_file(const char* image_file_name,
                                        const std::vector<std::tuple<const char*,
                                        std::vector<int>>>& content);
+
+    /**
+     * Instantiate the FileWriter class with the mode,
+     * for internal usage by subclasses.
+     * @mode: The mode to use.
+     */
+    FileWriter(const std::vector<int>& mode_choice);
 
 };
 

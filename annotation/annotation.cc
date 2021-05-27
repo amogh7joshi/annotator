@@ -19,8 +19,10 @@
 using namespace std;
 namespace fs = std::__fs::filesystem;
 
-Annotator::Annotator(const char *img_dir, const std::vector<std::string>& label_list, bool recurse)
-        : handler("two-click", label_list), writer() {
+Annotator::Annotator(
+        const char *img_dir, const std::vector<std::string>& label_list,
+        bool recurse, const std::vector<int>& mode_choice)
+        : handler("two-click", label_list), writer(mode_choice) {
     // Check whether the provided image directory exists.
     if (!fs::exists(fs::path(img_dir))) {
         const char* msg = "The provided image directory does not exist";

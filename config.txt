@@ -1,3 +1,4 @@
 /path/to/images
 space separated labels
 true
+0 1 2 3

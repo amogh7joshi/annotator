@@ -29,23 +29,6 @@
  * values based on the chosen mode.
  */
 class TextFileWriter : public FileWriter {
-protected:
-    /* The specific mode being used, which corresponds
-     * to the arrangement of the different coordinate
-     * values in the text file.
-     *
-     * The default arrangement is x_min, y_min, x_max,
-     * y_max, corresponding to the default {0, 1, 2, 3},
-     * but this can be overridden in the constructor with
-     * a different arrangement of integers.
-     * */
-    std::vector<int> mode = {0, 1, 2, 3};
-
-    /* The directory where the annotation files will be
-     * written to. By default, the actual file names will
-     * be a copy of the actual image file names. */
-    const char* output_dir;
-
 public:
     /**
      * Initializes the FileWriter class
@@ -73,6 +56,13 @@ public:
      * replaced with `annotations` instead.
      */
     TextFileWriter();
+
+    /**
+     * Initializes the FileWriter class with the
+     * default directory and chosen mode.
+     * @param mode_choice: The chosen writing mode.
+     */
+    TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice);
 
     /**
      * Constructs the annotation file given an input

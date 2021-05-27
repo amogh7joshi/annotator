@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <regex>
+#include <utility>
 
 using namespace std;
 namespace fs = std::__fs::filesystem;
@@ -84,5 +85,22 @@ void FileWriter::build_annotation_file(
     // The virtual method shouldn't be used.
     const char* msg = "The base annotation writer class should not be used.";
     perror(msg); exit(1);
+}
+
+FileWriter::FileWriter(const std::vector<int>& mode_choice) { // NOLINT
+    // Check whether the provided mode is valid.
+    if (mode_choice.size() == 4) {
+        // Copy the vector.
+        int curr = 0; vector<int> indexes(4);
+        generate(indexes.begin(), indexes.end(),
+                 [&](){return mode_choice[curr++];});
+        vector<int> expected {0, 1, 2, 3};
+        if (indexes != expected) {
+            const char* msg = "Received an invalid mode choice, expected "
+                              "a list containing 0, 1, 2, & 3.";
+            perror(msg);
+        }
+    }
+    this->mode = mode_choice;
 }
 

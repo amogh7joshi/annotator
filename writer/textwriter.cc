@@ -25,24 +25,8 @@ using namespace std;
 namespace fs = std::__fs::filesystem;
 
 TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice,
-                               const char *output_directory) {
-    // Check whether the provided mode is valid.
-    if (mode_choice.size() == 4) {
-        // Copy the vector.
-        int curr = 0; vector<int> indexes(4);
-        generate(indexes.begin(), indexes.end(),
-                 [&](){return mode_choice[curr++];});
-        vector<int> expected {0, 1, 2, 3};
-        if (indexes != expected) {
-            const char* msg = "Received an invalid mode choice, expected "
-                              "a list containing 0, 1, 2, & 3.";
-            perror(msg);
-        }
-    }
-
-    // Set the mode to the class.
-    this->mode = mode_choice;
-
+                               const char *output_directory)
+                               : FileWriter(mode_choice) {
     // Check whether the output directory is valid.
     if (!path_exists(output_directory)) {
         const char* msg = "The output directory provided does not exist.";
@@ -59,7 +43,8 @@ TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice,
     this->ext_mode = ".txt";
 }
 
-TextFileWriter::TextFileWriter(const char *output_directory) {
+TextFileWriter::TextFileWriter(const char *output_directory)
+              : FileWriter(vector<int> {0, 1, 2, 3})  {
     // Check whether the output directory is valid.
     if (!path_exists(output_directory)) {
         const char* msg = "The output directory provided does not exist.";
@@ -76,7 +61,17 @@ TextFileWriter::TextFileWriter(const char *output_directory) {
     this->ext_mode = ".txt";
 }
 
-TextFileWriter::TextFileWriter() {
+TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice) : FileWriter(mode_choice)  {
+    // Set the directory path to a nullptr, which will
+    // then be overwritten for each of the different
+    // files which are created in the future.
+    this->output_dir = nullptr;
+
+    // Set the extension mode.
+    this->ext_mode = ".txt";
+}
+
+TextFileWriter::TextFileWriter() : FileWriter(vector<int> {0, 1, 2, 3}) {
     // Set the directory path to a nullptr, which will
     // then be overwritten for each of the different
     // files which are created in the future.
