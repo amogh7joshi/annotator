@@ -30,7 +30,7 @@ TextFileWriter::TextFileWriter(const std::vector<int>& mode_choice,
     // Check whether the output directory is valid.
     if (!path_exists(output_directory)) {
         const char* msg = "The output directory provided does not exist.";
-        perror(msg);
+        error_exit(msg);
     }
 
     // Set the output directory to the class.
@@ -48,7 +48,7 @@ TextFileWriter::TextFileWriter(const char *output_directory)
     // Check whether the output directory is valid.
     if (!path_exists(output_directory)) {
         const char* msg = "The output directory provided does not exist.";
-        perror(msg);
+        error_exit(msg);
     }
 
     // Set the output directory to the class.

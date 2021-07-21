@@ -16,8 +16,7 @@ void UserConfig::load_config() {
         if (!fs::exists(fs::path(this->config_path_fallback))) {
             const char *msg = "The configuration path at `config.txt` "
                               "could not be found, check your paths.";
-            perror(msg);
-            exit(1);
+            error_exit(msg);
         } else {
             chosen_config = this->config_path_fallback;
         }

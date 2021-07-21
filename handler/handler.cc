@@ -30,15 +30,14 @@ std::vector<cv::Scalar> AnnotationHandler::colors = { // NOLINT
 };
 
 AnnotationHandler::AnnotationHandler(const char *mode_choice,
-                                     const std::vector<std::string>& class_list)
-{
+                                     const std::vector<std::string>& class_list) {
     // Validate and initialize the chosen mode.
     static std::set<const char*> mode_choices {"debug", "two-click", "drag"};
     if (mode_choices.find(mode_choice) != mode_choices.end()) {
         mode = mode_choice;
     } else {
         string msg = "Invalid mode \'" + string(mode_choice) + "\' received.";
-        perror(msg.c_str()); exit(1);
+        error_exit(msg.c_str());
     }
 
     // Create the relevant OpenCV methods, e.g. the named window
@@ -50,7 +49,7 @@ AnnotationHandler::AnnotationHandler(const char *mode_choice,
     // will be used to control the actual label choice.
     if (class_list.size() > 5) {
         const char* msg = "The list of class labels should not be longer than 5.";
-        perror(msg); exit(1);
+        error_exit(msg);
     }
     this->label_list = class_list;
 
@@ -63,7 +62,7 @@ int AnnotationHandler::annotate(const char *image_path) {
     if (!fs::exists(image_path)) {
         string msg = "The provided image path \'" +
                      string(image_path) + "\' does not exist";
-        perror(msg.c_str()); exit(1);
+        error_exit(msg.c_str());
     } else {
         // Read the image and update the class state.
         Mat img = imread(image_path);
@@ -168,7 +167,7 @@ void AnnotationHandler::add_buttons_to_image() {
     // First, check whether there is even an image.
     if (this->image_cache.empty()) {
         const char* msg = "No image found to annotate";
-        perror(msg); exit(1);
+        erro_exit(msg);
     }
 
     // Get the image width.
@@ -320,7 +319,7 @@ void AnnotationHandler::update_button_animations(int new_index) {
     this->clicked_index = new_index;
 }
 
-std::vector<int> AnnotationHandler::calculate_text_coordinates(const cv::Rect& button, const char* label){
+std::vector<int> AnnotationHandler::calculate_text_coordinates(const cv::Rect& button, const char* label) {
     // Calculate the text size.
     int baseline = 0;
     Size text_size = getTextSize(label, FONT_HERSHEY_SIMPLEX, 1, 2, &baseline);

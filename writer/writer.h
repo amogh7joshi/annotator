@@ -6,6 +6,8 @@
 #include <vector>
 #include <filesystem>
 
+#include "../system/error.h"
+
 #ifndef ANNOTATOR_WRITER_H
 #define ANNOTATOR_WRITER_H
 

@@ -12,6 +12,8 @@
 #include <sstream>
 #include <vector>
 
+#include "../system/error.h"
+
 struct UserConfig { // NOLINT
 public:
     /* The path to the image directory. */

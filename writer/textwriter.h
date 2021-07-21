@@ -19,8 +19,8 @@
 #include <filesystem>
 
 #include "writer.h"
-#include "textwriter.h"
 #include "../system/paths.h"
+#include "../system/error.h"
 
 /**
  * Writes a set of annotations into an text annotation

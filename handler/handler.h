@@ -25,6 +25,7 @@
 #include <opencv2/tracking.hpp>
 
 #include "../system/paths.h"
+#include "../system/error.h"
 
 /**
  * This class handles the events which take

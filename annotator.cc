@@ -27,7 +27,8 @@ int main() {
     Annotator annotator = Annotator(
         config.image_directory.c_str(),
         config.labels, config.recurse,
-        config.mode_order);
+        config.mode_order
+    );
 
     // Start the annotation session.
     annotator.start_annotation_session();
